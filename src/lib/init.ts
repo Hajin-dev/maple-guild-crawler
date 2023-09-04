@@ -1,5 +1,6 @@
 import {$Enums, PrismaClient } from "@prisma/client"
 import {getUser,memberInfo} from './getUser.js'
+import { logger } from "./logger.js"
 const prisma = new PrismaClient()
 async function main() {
     getUser().then(async _webDatas=>{
@@ -18,7 +19,7 @@ async function main() {
                         }
                     }}
             })
-            console.log('logged: '+result.charName,)
+            logger.log('info','logged: '+result.charName,)
         })})
 }
 
@@ -28,7 +29,7 @@ main()
     await prisma.$disconnect()
 })
 .catch(async (e) => {
-    console.error(e)
+    logger.error(e)
     await prisma.$disconnect()
     process.exit(1)
 })

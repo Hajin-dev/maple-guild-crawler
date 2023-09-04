@@ -1,7 +1,8 @@
 import got from 'got'
 import { parse } from 'node-html-parser';
 import type {HTMLElement} from 'node-html-parser'
-
+import { logger } from './logger.js';
+import { loggers } from 'winston';
 const detectRole = (raw:string|undefined):"MASTER"|"MANAGER"|"MEMBER"|undefined=>{
     if(raw=="길드원") return "MEMBER"
     else if (raw=="부마스터") return "MANAGER"
@@ -32,7 +33,7 @@ function sleep(ms:number) {
 
 async function pageParse(url:string):Promise<{ body: HTMLElement | null; nextUrl: string | undefined; }>{
     await sleep(1000)
-    console.log('Parsring: '+url)
+    loggers.log('Parsring: '+url)
     const data = await got.get(url)
     const root = parse(data.body)
     const body = root.querySelector('table.rank_table>tbody')

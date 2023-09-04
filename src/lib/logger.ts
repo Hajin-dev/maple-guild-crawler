@@ -1,20 +1,34 @@
 import {createLogger,format,transports } from 'winston'
 import path from 'path'
+import winstonDaily from 'winston-daily-rotate-file'
 import appRootPath from 'app-root-path'
 const appRoot = appRootPath.path
-const logger = createLogger({
-    level:'info',
+const logFormat = format.printf(info=>{
+    return `[${info.timestamp}] ${info.level}: ${info.message}`
+})
+export const logger = createLogger({
     format: format.combine(
-        format.timestamp({
-            format:path.join(appRoot,'logs')
-        }),
+        format.timestamp(),
         format.errors({stack:true}),
-        format.splat(),
-        format.json()
+        logFormat,
     ),
     defaultMeta:{service:'guild-lvExp-logger'},
     transports:[
-        new transports.File({ filename: 'quick-start-error.log', level: 'error' }),
-        new transports.File({ filename: 'quick-start-combined.log' })
+        new transports.Console(),
+        new winstonDaily({
+            level:'info',
+            datePattern:'YYMMDD',
+            dirname:'logs//info',
+            filename:`%DATE%.log`,
+            maxFiles: 30,
+            zippedArchive:true
+        }),
+        new winstonDaily({
+            level:'error',
+            datePattern:'YYMMDD',
+            dirname:path.join('logs','error'),
+            filename:`%DATE%.log`,
+            zippedArchive:true
+        })
     ]
 })

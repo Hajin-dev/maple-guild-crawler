@@ -5,3 +5,6 @@ dist
 
 test
 prisma/schema.prisma
+logs/error/230904.log
+logs/info/.7abeade27795db30bdbe9d8964c5737ac5badf87-audit.json
+logs/info/230904.log

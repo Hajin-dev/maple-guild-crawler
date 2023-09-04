@@ -1,6 +1,7 @@
 import {$Enums, PrismaClient } from "@prisma/client"
 import {getUser} from './getUser.js'
 import * as _ from 'lodash'
+import { logger } from "./logger.js"
 const prisma = new PrismaClient()
 const guildURLArray = process.env.GUILD_URLS.split(' ')
 async function do_update(url:string,guildType:$Enums.GUILD){
@@ -35,7 +36,7 @@ async function do_update(url:string,guildType:$Enums.GUILD){
                 }
             }
         })
-        console.log(result.charName+" in "+guildType)
+        logger.info(result.charName+" in "+guildType)
        }
     })
 }
@@ -58,7 +59,7 @@ export default async function update(){
     main().then(async ()=>{
         await prisma.$disconnect()}
     ).catch(async (e) => {
-        console.error(e)
+        logger.error(e)
         await prisma.$disconnect()
         process.exit(1)
       })
