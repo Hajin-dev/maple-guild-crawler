@@ -17,7 +17,7 @@ export const logger = createLogger({
         new winstonDaily({
             level:'info',
             datePattern:'YYMMDD',
-            dirname:path.join(os.homedir(),'.logs','info'),
+            dirname:path.join(os.homedir(),'.logs','guildLvExplogger','info'),
             filename:`%DATE%.log`,
             maxFiles: 30,
             zippedArchive:true
@@ -25,7 +25,7 @@ export const logger = createLogger({
         new winstonDaily({
             level:'error',
             datePattern:'YYMMDD',
-            dirname:path.join(os.homedir(),'.logs','error'),
+            dirname:path.join(os.homedir(),'.logs','guildLvExplogger','error'),
             filename:`%DATE%.log`,
             zippedArchive:true
         })
