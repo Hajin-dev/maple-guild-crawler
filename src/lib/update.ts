@@ -1,6 +1,5 @@
 import {$Enums, PrismaClient } from "@prisma/client"
 import {getUser} from './getUser.js'
-import * as _ from 'lodash'
 import { logger } from "./logger.js"
 const prisma = new PrismaClient()
 const guildURLArray = process.env.GUILD_URLS.split(' ')
