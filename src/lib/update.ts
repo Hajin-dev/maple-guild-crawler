@@ -3,7 +3,7 @@ import {getUser} from './getUser.js'
 import * as _ from 'lodash'
 const prisma = new PrismaClient()
 const guildURLArray = process.env.GUILD_URLS.split(' ')
-async function update(url:string,guildType:$Enums.GUILD){
+async function do_update(url:string,guildType:$Enums.GUILD){
     getUser(url).then(
         async _WebDatas=>{ //getUser lib으로 홈페이지 내 길드 캐릭터 불러옴
        for (const webData of _WebDatas){
@@ -49,14 +49,17 @@ async function main(){
         })
     }
     guildList.map(async (value)=>(
-        await update(value.url,value.guild)
+        await do_update(value.url,value.guild)
     ))
     
 }
-main().then(async ()=>{
-    await prisma.$disconnect()}
-).catch(async (e) => {
-    console.error(e)
-    await prisma.$disconnect()
-    process.exit(1)
-  })
+
+export default async function update(){
+    main().then(async ()=>{
+        await prisma.$disconnect()}
+    ).catch(async (e) => {
+        console.error(e)
+        await prisma.$disconnect()
+        process.exit(1)
+      })
+}

@@ -17,6 +17,7 @@
     "@types/node": "^20.5.0",
     "@types/node-cron": "^3.0.8",
     "@types/pg": "^8.10.2",
+    "app-root-path": "^3.1.0",
     "asynciterator": "^3.8.1",
     "cheerio": "1.0.0-rc.12",
     "console-table-printer": "^2.11.2",
@@ -32,7 +33,8 @@
     "sequelize": "^6.32.1",
     "sequelize-auto": "^0.8.8",
     "ts-node": "^10.9.1",
-    "url": "^0.11.1"
+    "url": "^0.11.1",
+    "winston": "^3.10.0"
   },
   "type": "module"
 }
